@@ -10,7 +10,7 @@ Using Ribbon discovery in Kubernetes `spring-cloud-starter-kubernetes-netflix`
 #### Minikube IP: 192.168.99.100
 
 #### hello-service: it is a service app. It has api
-http://192.168.99.100:31090/hi_getall
+$(minikube service hello-service --url)/hi_getall
 
 Build hello-service
 ```
@@ -21,7 +21,7 @@ mvn clean package
 Docker build
 ```
 cd hello-service
-docker build -t nhatthai/hello-service .
+docker build -t hello-service:1.0.0 .
 ```
 
 Run service in Kubernetes(Using Minikube)
@@ -32,9 +32,9 @@ kubectl create -f manifests/hello-service.yml
 ```
 
 #### client-service: Using Feign, connect to hello-service
-http://192.168.99.100:31899/getall-hi
+$(minikube service hello-service --url)/getall-hi
 
-It will request to http://192.168.99.100:31090/hi_getall of hello-service
+It will request to $(minikube service hello-service --url)/hi_getall of hello-service
 
 Build client-service
 ```
@@ -45,7 +45,7 @@ mvn clean package
 Docker build
 ```
 cd client-service
-docker build -t nhatthai/client-service .
+docker build -t client-service:1.0.0 .
 ```
 
 Run service in Kubernetes(Using Minikube)
